@@ -10,13 +10,17 @@
 * Open cmd to the file location.
 * Run Command:
 ```console
--newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json
+newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json
 ```
 * Run Command for Report:
 For html:
--newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
+```console
+newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
+```
 For htmlextra:
+```console
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,htmlextra
+```
 ### Technology used:
 <img src="https://voyager.postman.com/logo/postman-logo-icon-orange.svg"  width="15" height="15"> Postman & Newman
 
@@ -28,7 +32,10 @@ newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user
 
 ### Newman and Report Installation Process:
 - Newman Install Command:
+``` console
 npm install -g newman-reporter-htmlextra
-
+```
 - Newman Html Report Install Command:
+``` console
 npm install -g newman-reporter-htmlextra
+```
