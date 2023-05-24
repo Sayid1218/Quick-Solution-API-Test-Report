@@ -9,7 +9,9 @@
 * Clone this repository.
 * Open cmd to the file location.
 * Run Command:
+```console
 -newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json
+```
 * Run Command for Report:
 For html:
 -newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
