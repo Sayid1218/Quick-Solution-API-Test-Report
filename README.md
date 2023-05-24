@@ -12,7 +12,7 @@
 ```console
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json
 ```
-* Run Command for Report: `
+* Run Command for Report: _
 For html:
 ```console
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
