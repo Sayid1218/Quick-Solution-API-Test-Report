@@ -55,3 +55,28 @@ npm install -g newman-reporter-htmlextra
 #### DELETE
 - Delete applied job.
 ### Post job by user
+#### PUT
+- Put user to database and collect accessToken.
+#### POST
+- Post a job.
+#### GET
+- Get posted job.
+#### DELETE
+- Delete posted job.
+### Admin User
+### GET
+- Get all Jobs from database.
+- Get an user information by email.
+- Get all users from database.
+- Get Category from database.
+- Get Reviews.
+- Get a email Admin or not.
+### PUT
+- Put category in database.
+- Put a user to admin.
+### POST
+- Post a review.
+### DELETE
+- Delete user from database.
+- Delete Review from database.
+
