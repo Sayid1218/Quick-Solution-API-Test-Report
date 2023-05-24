@@ -81,5 +81,5 @@ npm install -g newman-reporter-htmlextra
 - Delete Review from database.
 
 # Newman Report
-![image](https://github.com/Sayid1218/Quick-Solution-API-Test-Report/assets/97175166/21b2581b-7e95-4eb1-859a-bff349090ee4)
+![image](https://github.com/Sayid1218/Quick-Solution-API-Test-Report/assets/97175166/3b6cce36-6035-48f2-9f64-1dde7741dc13)
 ![image](https://github.com/Sayid1218/Quick-Solution-API-Test-Report/assets/97175166/c9d5fad0-ee9a-4ecc-8e67-4d1fa32a0c46)
