@@ -1,0 +1,931 @@
+{
+	"info": {
+		"_postman_id": "1344665c-0219-4e58-8312-b5929b542b17",
+		"name": "Quick-Solution2 Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24594715"
+	},
+	"item": [
+		{
+			"name": "Find Job by User",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "Find Job by Keyword",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let code = pm.response.code;\r",
+											"\r",
+											"if(code==200){\r",
+											"pm.test(\"Success\", ()=>{\r",
+											"    pm.response.json()._id;\r",
+											"})\r",
+											"pm.environment.set(\"JobId\" , pm.response.json()[0]._id);\r",
+											"}\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "keyword",
+										"value": "{{keyword}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://quick-solution.up.railway.app/findjob?keyword=b",
+									"protocol": "https",
+									"host": [
+										"quick-solution",
+										"up",
+										"railway",
+										"app"
+									],
+									"path": [
+										"findjob"
+									],
+									"query": [
+										{
+											"key": "keyword",
+											"value": "b"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET applied jobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Applied Jobs Gotted\", ()=>{\r",
+											"    pm.response.json()._id;\r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/myApplied/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"myApplied",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET job details from DB",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var JobDetails = pm.response.json()\r",
+											"pm.test(\"JobDetails are gotted\", function () {\r",
+											"     pm.response.json() != null;\r",
+											"});\r",
+											"pm.test(\"JobDetails are gotted\", function () {\r",
+											"    pm.response.to.have.body(JobDetails);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Quick-Solution}}/jobs/{{JobId}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"jobs",
+										"{{JobId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "PUT a user to DB",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"Access token\", pm.response.json().accessToken);\r",
+											"pm.test(\"Token Gotted\", ()=>{\r",
+											"    pm.response.json().accessToken;\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"Department\": \"{{Department}}\",\r\n    \"Description\": \"{{Description}}\",\r\n    \"Experience\": \"{{Experience}}\",\r\n    \"Phone\": \"{{Phone}}\",\r\n    \"Profile\": \"{{Profile}}\",\r\n    \"Student_ID\": \"{{Student_ID}}\",\r\n    \"University\": \"{{University}}\",\r\n    \"Year_OR_Semester\": \"{{Year_OR_Semester}}\",\r\n    \"location\": \"{{location}}\",\r\n    \"photoUrl\": \"{{photoUrl}}\",\r\n    \"role\": \"{{role}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Quick-Solution}}/user/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"user",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Apply Job",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											"pm.test(\"Applied\" ,()=>{\r",
+											"   pm.expect(pm.response.json().acknowledged).is.equal(true);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{Quick-Solution}}/findjob/{{JobId}}?email={{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"findjob",
+										"{{JobId}}"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "{{email}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "DELETE applied jobs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleted\" ,()=>{\r",
+											"   pm.expect(pm.response.json().acknowledged).is.equal(true);\r",
+											"    \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/myApplied/{{JobId}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"myApplied",
+										"{{JobId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post Job by User",
+			"item": [
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "PUT a user to DB Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"Access token\", pm.response.json().accessToken);\r",
+											"pm.test(\"Token Gotted\", ()=>{\r",
+											"    pm.response.json().accessToken;\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abdullahsayid1218@gmail.com\",\r\n    \"Department\": \"CSE\",\r\n    \"Description\": \"I am a web developer who creates websites and applications. I develop websites that are user friendly, attractive and highly functional. I use the latest technologies and coding languages, such as HTML, CSS, JavaScript, and PHP, to create websites that are compatible with all browsers and platforms. I also use frameworks such as WordPress and Bootstrap to create websites quickly and efficiently. In addition, I also develop backend applications to help manage databases and complete complex tasks\",\r\n    \"Experience\": \"web developer is responsible for creating and maintaining websites. They design, code, and build websites, using a variety of web programming languages and technologies. Web developers must also have an understanding of usability and accessibility, as well as an understanding of web standards and best practices.\\n\\nTo become a successful web developer, individuals must have strong technical skills, an eye for detail, and a good working knowledge of web technologies and development tools. They must also possess strong problem-solving and communication skills, as well as the ability to work independently and collaboratively.\\n\\nTo stay up-to-date on the latest web development trends and technologies, web developers usually attend conferences, read industry publications, and participate in online forums. Additionally, web developers may also need to be familiar with content management systems (CMS) in order to manage the content on websites.\",\r\n    \"Phone\": \"01580394350\",\r\n    \"Profile\": \"Updated\",\r\n    \"Student_ID\": \"191-15-12377\",\r\n    \"University\": \"Daffodil International Unversit}\",\r\n    \"Year_OR_Semester\": \"4rth\",\r\n    \"location\": \"Dhaka\",\r\n    \"photoUrl\": \"https://i.ibb.co/WcDh5yY/20201216061303-IMG-0156-clipdrop-relight.jpg\",\r\n    \"role\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Quick-Solution}}/user/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"user",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "POST a Job Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Job Posted\" ,()=>{\r",
+											"   pm.expect(pm.response.json().acknowledged).is.equal(true);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JobId\", pm.response.json().insertedId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"LogoUrl\": \"https://i.ibb.co/JpBy401/photo-2022-11-29-08-45-36.jpg\",\r\n        \"AuthorName\": \"Abdullah Mohammod Sayid Boiah\",\r\n        \"Category\": \"Software Fix\",\r\n        \"Post\": \"Fix Windows Software issue\",\r\n        \"Type\": \"One-time\",\r\n        \"Salary\": \"Depemds on work\",\r\n        \"location\": \"Mohammodpur, Dhaka\",\r\n        \"Description\": \"I ahve computer and it has some issues. You have to check all .\",\r\n        \"Responsibilities\": \"If you are a it student it will be better. Have knowledge about PC.\",\r\n        \"Reqiuronment\": \"Time needed minimum 3 hour\",\r\n        \"Vacancy\": \"1\",\r\n        \"Educational_Requirements\": \"Batchelor\",\r\n        \"Compensation_Other_Benefits\": \"n/a\",\r\n        \"Phone\": \"01580394350\",\r\n        \"email\": \"{{email}}\",\r\n        \"Published_On\": \"2023-01-27\",\r\n        \"Application_Deadline\": \"2023-02-10\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Quick-Solution}}/jobs",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"jobs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "GET posted jobs from DB Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"JobDetails\", ()=>{\r",
+											"    pm.expect(pm.response.json()[0]._id);\r",
+											"})\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/myjobs/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"myjobs",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "Delete Job by Jobid Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleted Job\" ,()=>{\r",
+											"   pm.expect(pm.response.json().acknowledged).is.equal(true);\r",
+											"   \r",
+											"   pm.expect(pm.response.json().deletedCount).is.equal(1);\r",
+											"   \r",
+											"    \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/deletejob/{{JobId}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"deletejob",
+										"{{JobId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin users",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "GET All Jobs from DB",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jobs = pm.response.json()\r",
+											"pm.test(\"Jobs are gotted\", function () {\r",
+											"     pm.expect(jobs).length.greaterThan(1)\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/jobs",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"jobs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET an user information by email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var email= pm.environment.get(\"email\");\r",
+											"pm.test(\"User Verified\", function () {\r",
+											"    const Details = pm.response.json()\r",
+											"    pm.expect(Details.email).is.equal(email);\r",
+											"\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/user/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"user",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET All users from DB",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/users",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET category from DB",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category gotted\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"_id here\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"_id\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name here\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+											"});\r",
+											"pm.test(\"Logo here\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"logoUrl\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Quick-Solution}}/categories",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Reviews",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Reviews gotted\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"_id here\", function () {\r",
+											"    pm.expect(pm.response.json()._id);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name here\", function () {\r",
+											"    pm.expect(pm.response.json().name);\r",
+											"});\r",
+											"pm.test(\"Image here\", function () {\r",
+											"    pm.expect(pm.response.json().img);\r",
+											"});\r",
+											"pm.test(\"Email here\", function () {\r",
+											"    pm.expect(pm.response.json().email);\r",
+											"});\r",
+											"pm.test(\"Location here\", function () {\r",
+											"    pm.expect(pm.response.json().location);\r",
+											"});\r",
+											"pm.test(\"Reviewtext here\", function () {\r",
+											"    pm.expect(pm.response.json().reviewtext);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Quick-Solution}}/reviews",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET a email Admin or not",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const email = pm.environment.get(\"email\");\r",
+											"pm.test(`${email} is an admin`, ()=> {\r",
+											"    pm.expect(pm.response.json().admin).to.eql(true)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/user/admin/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"user",
+										"admin",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "PUT category in DB Copy",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n         \"name\": \"Seller\",\r\n        \"logoUrl\": \"https://i.ibb.co/B4yNbZq/Seller.png\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Quick-Solution}}/category/add",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"category",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT a user to admin Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Admin Maked\", ()=>{\r",
+											"   pm.expect(pm.response.json().acknowledged).eql(true)\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/user/admin/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"user",
+										"admin",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "POST a review",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"ReviewId\", pm.response.json().insertedId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n      \r\n        \"name\": \"Jamal\",\r\n        \"img\": \"https://i.ibb.co/dWZ7m3J/photostudio-4-designify.png\",\r\n        \"email\": \"jamal12@gmail.com\",\r\n        \"location\": \"Mohammodpur, Dhaka\",\r\n        \"reviewtext\": \"The site is very useful and good. It a very well designed and decorated.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Quick-Solution}}/reviews",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "Deleted user from DB Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "authorization",
+										"value": "Bearar token(Which you got from put user API response)",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/user/{{email}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"user",
+										"{{email}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Review from DB Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Deleted Review\", function () {\r",
+											"    var jsonData = pm.response.json().deletedCount;\r",
+											"    pm.expect(jsonData).to.eql(1);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearar {{Access token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Quick-Solution}}/reviews/{{ReviewId}}",
+									"host": [
+										"{{Quick-Solution}}"
+									],
+									"path": [
+										"reviews",
+										"{{ReviewId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
