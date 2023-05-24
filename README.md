@@ -15,3 +15,19 @@ For html:
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
 For htmlextra:
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,htmlextra
+### Technology used:
+- Postman
+- Newman
+
+### Prerequisite:
+- Jdk
+- Node Js
+- Newman
+- Html Report Library
+
+### Newman and Report Installation Process:
+- Newman Install Command:
+npm install -g newman-reporter-htmlextra
+
+- Newman Html Report Install Command:
+npm install -g newman-reporter-htmlextra
