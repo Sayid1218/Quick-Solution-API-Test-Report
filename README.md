@@ -8,16 +8,16 @@
 ### 🖥 Run by Newman:
 * Clone this repository.
 * Open cmd to the file location.
-* Run Command:
+* Run Command :
 ```console
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json
 ```
 * Run Command for Report:
-For html:
+For html :
 ```console
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
 ```
-For htmlextra:
+For htmlextra :
 ```console
 newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,htmlextra
 ```
