@@ -6,3 +6,12 @@
 * Import collection and environment file/link.
 * Run the collection on Postman.
 ### Run by Newman:
+* Clone this repository.
+* Open cmd to the file location.
+* Run Command:
+  newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json
+* Run Command for Report:
+For html:
+newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,html
+For htmlextra:
+newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user.postman_environment.json -r cli,htmlextra
