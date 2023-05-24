@@ -30,12 +30,12 @@ newman run Quick-Solution2.postman_collection.json -e Quick-Solution-Single-user
 - Newman
 - Html Report Library
 
-### Newman and Report Installation Process:
-- Newman Install Command:
+### Newman and Report Installation Process :
+- Newman Install Command :
 ``` console
 npm install -g newman-reporter-htmlextra
 ```
-- Newman Html Report Install Command:
+- Newman Html Report Install Command :
 ``` console
 npm install -g newman-reporter-htmlextra
 ```
