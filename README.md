@@ -43,4 +43,15 @@ npm install -g newman-reporter-htmlextra
 [PDF](https://drive.google.com/file/d/1cI9_7JVvtUjUSqY8ZTs3O4SYrdurudZS/view?usp=sharing)
 #### Postman Documentations
 [Postman](https://documenter.getpostman.com/view/24594715/2s93m4ZPT7)
-
+## Test case list:
+### Find Job By User
+#### PUT
+- Put user to Database and Collect accessToken.
+- Put a applied job.
+#### GET
+- Find Job by Keyword.
+- Get job Details.
+- Get applied jobs.
+#### DELETE
+- Delete applied job.
+### Post job by user
